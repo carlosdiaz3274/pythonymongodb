@@ -21,7 +21,7 @@ print(x)
 
 print("-------------------------")
 
-for x in mycol.find({}, {"_id": 0, "name": 1, "departamento": 1}): #con un filtro, es decir, se menciona el nombre del campo : (0 si no debe aparecer, 1 si debe aparecer)
+for x in mycol.find({}, {"_id": 0, "name": 1, "departamento": 1, "mascota": 1}): #con un filtro, es decir, se menciona el nombre del campo : (0 si no debe aparecer, 1 si debe aparecer)
     print(x)
 
 
