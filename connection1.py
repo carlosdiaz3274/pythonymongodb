@@ -9,11 +9,13 @@ db = client.test
 
 print(client.list_database_names()) #show databases en SQL
 
-mydb = client["mydatabase"] #se accede a la bd
+mydb = client["sample_restaurants"] #se accede a la bd
+
+print(mydb.list_collection_names())
 
 mycol = mydb["customers"]
 
-print("estare en github")
+
 
 
 
