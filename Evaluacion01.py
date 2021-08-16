@@ -1,3 +1,8 @@
+#BECA DE CIENCIA DE DATOS - SECRETARIA DE INNOVACION - GOBIERNO DE EL SALVADOR
+#JUAN CARLOS DIAZ HERNANDEZ - 00635193-8 (dui)
+# juan.diaz@cnr.gob.sv carlosdiaz.app@gmail.com
+#PRIMERA EVALUACION
+
 import pymongo
 import certifi
 import os
@@ -11,7 +16,7 @@ db = client.test
 
 mydb = client["Evaluacion01"]
 mycol = mydb["CE"] #Conectamos con la db y la coleccion
-#input() se utilizará para hacer pausas y avanzar con el teclado
+
 
 while True:
     os.system("cls") #Limpia la pantalla
@@ -43,16 +48,16 @@ while True:
             print(x)
         input()
     elif opcion == "3":
-        key = int(input("Digite el _id del CE a actualizar: "))
+        key = int(input("Digite el _id del CE cuyo NOMBRE se actualizará: "))
         myquery = { "_id" : key }
-        mydoc = mycol.find(myquery)
-        for x in mydoc:  #Muestra el documento donde el _id sea el buscado
-            print(x)
+        mydoc = mycol.find(myquery, {"_id":0, "Departamento":0, "Municipio":0 })
+        for x in mydoc:  #Mostramos el valor a cambiar
+            print("El nombre a cambiar es: ", x)
         valor = input("Digite el nombre del CE: ")
         doc2 = { "$set" : {"Nombre": valor }}
         mycol.update_one(myquery, doc2)
-        mydoc = mycol.find(myquery)
-        for x in mydoc:  #Muestra el documento donde el _id sea el buscado
+        mydoc = mycol.find(myquery, {"_id":0 })
+        for x in mydoc:  #imprimimos nuevamente el valor ya actualizado
             print(x)
         input()
     

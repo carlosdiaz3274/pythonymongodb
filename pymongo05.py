@@ -19,8 +19,8 @@ mydoc = mycol.find(myquery)
 for x in mydoc:
     print(x) #muestra los documentos que en address contenga San Salvador
 
-print()
-myquery2 = { "address": { "$gt": "S" } }
+print("busqueda especifica")
+myquery2 = { "name": { "$gt": "Andrea" } }
 mydoc2 = mycol.find(myquery2)
 for x in mydoc2:
     print(x) #muestra los documentos donde inicie con S
