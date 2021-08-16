@@ -22,14 +22,14 @@ while True:
     os.system("cls") #Limpia la pantalla
     print("Menu: ")
     print("1. Añadir un CE")
-    print("2. Buscar un CE por _id")
+    print("2. Visualizar un CE por _id")
     print("3. Actualizar un CE")
     print("4. Eliminar registro de CE")
     print("5. Salir")
 
     opcion = input("Ingrese su opcion: ") #Capturamos la opcion
 
-    if opcion == "1":
+    if opcion == "1": #INSERTAR UN CE
         Identificador = int(input("Digite el _id del Centro Escolar: "))
         Nombre = input("Digite el nombre del Centro Escolar: ") #Capturamos el nombre del cliente
         Departamento = input("Digite el departamento: ") #Capturamos la direccion
@@ -39,7 +39,7 @@ while True:
         x = mycol.insert_one(mydic) #lo insertamos en la base
         input()
 
-    elif opcion == "2":
+    elif opcion == "2": #VISUALIZAR UN CE EN LA DB POR ID
         key = int(input("Digite el _id a buscar en la base de datos: "))
 
         myquery = { "_id" : key }
@@ -47,7 +47,7 @@ while True:
         for x in mydoc:  #Muestra el documento donde el _id sea el buscado
             print(x)
         input()
-    elif opcion == "3":
+    elif opcion == "3": #ACTUALIZAR UN CE POR ID
         key = int(input("Digite el _id del CE cuyo NOMBRE se actualizará: "))
         myquery = { "_id" : key }
         mydoc = mycol.find(myquery, {"_id":0, "Departamento":0, "Municipio":0 })
@@ -61,7 +61,7 @@ while True:
             print(x)
         input()
     
-    elif opcion == "4":
+    elif opcion == "4": #ELIMINAR UN CE POR ID
         key = int(input("Digite el _id del CE a eliminar: "))
         eliminar = { "_id" : key }
         mycol.delete_one(eliminar)
