@@ -14,6 +14,7 @@ pasajeros = pd.DataFrame(titanic_df)
 
 while True:
     os.system("cls") #Limpia la pantalla
+    print("ANALISIS DE LA LISTA DE PASAJEROS DEL TITANIC")
     print("Menu: ")
     print("1. Buscar por Ticket")
     print("2. Visualizar grafico de sobrevivencia y fallecidos")
@@ -28,36 +29,33 @@ while True:
         print(titanic_df[(titanic_df['Ticket']==ticket)])
 
         input()
-    elif opcion == "2": #VISUALIZAR UN CE EN LA DB POR ID
+    elif opcion == "2": #VISUALIZAR SOBREVIVIENTES Y FALLECIDOS
         sobrevivientes = titanic_df.groupby('Sobrevivio')['Clase'].count()
         print(sobrevivientes)
         y = np.array([sobrevivientes[0], sobrevivientes[1]])
+        colores = ["#38B3F9", "#A9E0FF"]
         mylabels = ["Fallecidos", "Sobrevivientes"]
-        plt.pie(y, labels=mylabels, shadow=True)
+        plt.pie(y, labels=mylabels, shadow=True, autopct="%0.1f %%", colors=colores)
+        plt.title('Sobrevivientes y Fallecidos')
         plt.show()
         
         input()
-    elif opcion == "3": #ACTUALIZAR UN CE POR ID
-        key = int(input("Digite el _id del CE cuyo NOMBRE se actualizará: "))
-        myquery = { "_id" : key }
-        mydoc = mycol.find(myquery, {"_id":0, "Departamento":0, "Municipio":0 })
-        for x in mydoc:  #Mostramos el valor a cambiar
-            print("El nombre a cambiar es: ", x)
-        valor = input("Digite el nombre del CE: ")
-        doc2 = { "$set" : {"Nombre": valor }}
-        mycol.update_one(myquery, doc2)
-        mydoc = mycol.find(myquery, {"_id":0 })
-        for x in mydoc:  #imprimimos nuevamente el valor ya actualizado
-            print(x)
+    elif opcion == "3": #VISUALIZAR SEGUN CLASE
+        clases = titanic_df.groupby('Clase')['Clase'].count()
+        eje_x = ['Primera clase', 'Segunda clase', 'Tercera clase']
+        eje_y = np.array([clases.loc[1], clases.loc[2], clases.loc[3]])
+        plt.bar(eje_x, eje_y)
+        plt.ylabel = ('Pasajeros')
+        plt.xlabel = ('Clase')
+        plt.title('Tipo (Clase) de boleto y viaje en el TITANIC')
+        plt.show()
         input()
     
-    elif opcion == "4": #ELIMINAR UN CE POR ID
-        key = int(input("Digite el _id del CE a eliminar: "))
-        eliminar = { "_id" : key }
-        mycol.delete_one(eliminar)
-        print("El CE ", key, " ha sido eliminiado...")
+    elif opcion == "4": #CONOCER EL COSTO DE LOS TICKETS
+        costos = titanic_df[titanic_df['Tarifa'].notnull()]
+        print("El ticket mas caro fue: $", costos['Tarifa'].max())
+        print("El ticket mas barato fue: $", costos['Tarifa'].min())
         input()
-
     elif opcion == "5":
         print("Saliendo del sistema")
         input()
